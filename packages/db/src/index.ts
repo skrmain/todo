@@ -1,25 +1,28 @@
-import { connect } from 'mongoose';
+import mongoose from 'mongoose';
+import { MongoServerError } from 'mongodb';
 
 export { default as Todo } from './models/todo.model.js';
 
-export async function connectDb(dbUrl: string) {
-    const { connection } = await connect(dbUrl);
-
-    console.log(`db: Connected to '${connection.db?.databaseName}' database`);
-
-    connection.on('error', (error) => {
+export async function connectDb(dbUrl: string, dbName: string) {
+    mongoose.connection.on('error', (error) => {
         console.log('db: Connection Error', error);
     });
 
-    connection.on('disconnected', () => {
+    mongoose.connection.on('disconnected', () => {
         console.log('db: Connection Disconnected');
     });
 
-    connection.on('reconnected', () => {
+    mongoose.connection.on('reconnected', () => {
         console.log('db: Connection ReConnected');
     });
 
-    connection.on('connected', () => {
-        console.log('db: Connected');
+    mongoose.connection.on('connected', () => {
+        console.log(`db: Connected to '${mongoose.connection.db?.databaseName}' database`);
     });
+
+    await mongoose.connect(dbUrl, { dbName, serverSelectionTimeoutMS: 2_000 });
+}
+
+export function isMongooseError(error: unknown): error is MongoServerError {
+    return error instanceof MongoServerError;
 }

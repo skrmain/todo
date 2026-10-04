@@ -3,10 +3,12 @@ import express from 'express';
 import { env } from './config.js';
 
 import { connectDb, Todo } from '@todo/db';
+import { errorHandlerMiddleware } from './middlewares/error-handler.js';
+import { notFoundMiddleware } from './middlewares/not-found.js';
 
 const app = express();
 
-await connectDb(env.DB_URL);
+await connectDb(env.DB_URL, env.DB_NAME);
 
 app.get('/', (req, res) => res.send({ message: 'Ok' }));
 
@@ -25,6 +27,9 @@ app.get('/todos', async (req, res) => {
     res.send({ data: todos });
 });
 
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
+
 app.listen(env.PORT, () => {
-    console.log(`${env.NAME} listening on port ${env.PORT}`);
+    console.log(`server: Listening on '${env.PORT}' port`);
 });
