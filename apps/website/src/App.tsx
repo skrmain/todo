@@ -4,9 +4,9 @@ import {
     useMemo,
     useRef,
     useState,
-    type FormEvent,
     type KeyboardEvent,
     type PointerEvent,
+    type SubmitEvent,
 } from 'react';
 
 import { Button, Checkbox, ConfirmDialog, Select, TextInput } from '@todo/ui';
@@ -164,7 +164,7 @@ function App() {
         [todos],
     );
 
-    function addTodo(event: FormEvent<HTMLFormElement>) {
+    function addTodo(event: SubmitEvent<HTMLFormElement>) {
         event.preventDefault();
         const title = newTitle.trim();
         if (!title) {
