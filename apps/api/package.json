@@ -3,6 +3,7 @@
     "type": "module",
     "scripts": {
         "build": "tsc",
+        "debug": "node --watch --inspect --env-file-if-exists=.env src/index.ts",
         "dev": "tsx watch --env-file-if-exists=.env src/index.ts",
         "start": "node --env-file-if-exists=.env dist/index.js"
     },
