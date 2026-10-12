@@ -25,7 +25,17 @@ todo
 - tsconfig.node.json
 ```
 
-## API overview
+## Website
+
+The Vite website provides a single-list todo UI and stores tasks and appearance
+preferences in the browser. It does not call the API; data stays in the current
+browser until cleared.
+
+```sh
+npm run dev --workspace @todo/website
+```
+
+## API
 
 The Express API connects to MongoDB and exposes CRUD endpoints at `/todos`.
 The list endpoint supports pagination (`page`, `limit`), case-insensitive
@@ -33,8 +43,16 @@ search (`search`), filtering by completion (`done=true|false`), and sorting by
 `title` or `createdAt` (`sortBy`, `sortOrder`). Request bodies and query
 parameters are validated before use.
 
-Todo endpoints: `GET /todos`, `GET /todos/:id`, `POST /todos`,
-`PATCH /todos/:id`, `PATCH /todos/:id/done`, and `DELETE /todos/:id`.
+Supported routes:
+
+- GET: /
+- GET: /todos?{page,limit,search,done,sortBy,sortOrder}
+- POST: /todos
+- GET: /todos/:id
+- PATCH: /todos/:id
+- PATCH: /todos/:id/done
+- DELETE: /todos/:id
+
 Todos start with `done: false`; the update endpoint can also set the `done`
 field to mark a todo done or reopen it.
 

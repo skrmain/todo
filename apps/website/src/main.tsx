@@ -1,11 +1,12 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import Counter from './components/Counter';
+import App from './App';
+import './styles.css';
+import '@todo/ui/styles.css';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <h1>Todo App</h1>
-        <Counter />
+        <App />
     </StrictMode>,
 );
