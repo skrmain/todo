@@ -1,0 +1,10 @@
+{
+    "name": "@todo/load",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "smoke": "k6 run --vus 1 --iterations 1 src/api.js",
+        "load": "k6 run --vus 10 --duration 30s src/api.js"
+    }
+}

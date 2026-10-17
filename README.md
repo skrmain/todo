@@ -56,6 +56,24 @@ Supported routes:
 Todos start with `done: false`; the update endpoint can also set the `done`
 field to mark a todo done or reopen it.
 
+## API load testing
+
+The `@todo/load` workspace contains k6 checks for the API health endpoint and
+todo list/create/read/complete/delete flow. Install [k6](https://k6.io/docs/get-started/installation/)
+before running it, and start the API with MongoDB available.
+
+Run a single-iteration smoke test or a 30-second load test (10 virtual users):
+
+```sh
+npm run smoke --workspace @todo/load
+npm run load --workspace @todo/load
+```
+
+The default target is `http://localhost:8000`. Set `BASE_URL` to test another
+API instance, for example `BASE_URL=http://localhost:8080 npm run smoke --workspace @todo/load`.
+The load test requires every check to pass at least 99% of the time, a p95
+response time below 500 ms, and an HTTP failure rate below 1%.
+
 ## Run the API with Docker
 
 The API has its own Dockerfile at `apps/api/Dockerfile`. Build from the

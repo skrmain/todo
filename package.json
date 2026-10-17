@@ -6,7 +6,8 @@
         "apps/website",
         "apps/api",
         "packages/ui",
-        "packages/db"
+        "packages/db",
+        "packages/load"
     ],
     "devDependencies": {
         "@types/node": "^26.6.3",
