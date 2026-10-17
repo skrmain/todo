@@ -50,7 +50,7 @@ export function insertTodo(todo: { title: string; description?: string }) {
 }
 
 export function updateTodoById(id: string, changes: { title?: string; description?: string; done?: boolean }) {
-    return Todo.findByIdAndUpdate(id, changes, { new: true, runValidators: true }).lean();
+    return Todo.findByIdAndUpdate(id, changes, { returnDocument: 'after', runValidators: true }).lean();
 }
 
 export function removeTodoById(id: string) {
